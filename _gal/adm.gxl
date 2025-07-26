@@ -1,0 +1,15 @@
+
+extern mod cfm { git =  "https://cnb.cool/dy-sec/galaxy-open/gxl-ports.git"; channel = "alpha"; }
+mod  envs {
+  env default {
+  }
+}
+mod main   {
+
+  #[usage(desp="update version of patch ")]
+  flow v_patch   | ver.patch  { }
+  #[usage(desp="update version of feature ")]
+  flow v_feature |  ver.feature  { }
+  #[usage(desp="add tag by version ")]
+  flow v_tag     | git.tag_ver ;
+}

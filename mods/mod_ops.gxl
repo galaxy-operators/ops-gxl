@@ -1,0 +1,63 @@
+mod mod_ops {
+    #[auto_load(entry)]
+    flow __into  {
+      //进行依赖确认
+    }
+
+  flow download {
+      gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "download" ) ;
+  }
+  flow install {
+      gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "install" ) ;
+  }
+  flow start {
+      gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "start" ) ;
+   }
+  flow stop {
+    gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "stop" ) ;
+  }
+  flow restart {
+      gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "restart" ) ;
+   }
+  flow update {
+      gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "update" ) ;
+   }
+   flow uninstall {
+      gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "uninstall" ) ;
+   }
+}
+
+mod empty_operators  {
+
+    #[task(name="download")]
+    flow download {
+        gx.echo ( "need Todo....") ;
+    }
+    #[task(name="install")]
+    flow install {
+        gx.echo ( "need Todo....") ;
+    }
+
+    #[task(name="uninstall")]
+    flow uninstall {
+        gx.echo ( "need Todo....") ;
+    }
+    #[task(name="update")]
+    flow update {
+        gx.echo ( "need Todo....") ;
+    }
+    #[task(name="start")]
+    flow start {
+        gx.echo ( "ignore start...") ;
+
+    }
+    #[task(name="stop")]
+    flow stop {
+        gx.echo ( "ignore stop ...") ;
+
+    }
+    #[task(name="restart")]
+    flow restart {
+        gx.echo ( "ignore restart ...") ;
+    }
+}

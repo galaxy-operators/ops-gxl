@@ -1,0 +1,67 @@
+mod sys_ops {
+  
+    #[auto_load(entry)]
+    flow __into  {
+        //这里需要提供新机制，判断是否存在依赖的变量。或者提供依赖检查检查机制
+        // gx.assert( value : "ENV_SYS_MODEL" , value : "arm-mac14-host" ) ;
+        gx.read_file( file : "./${ENV_SYS}/mod_list.yml" ,  name : "MODS" ) ;
+    }
+
+    flow download {
+        for ${CUR} in ${MODS} {
+            if ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "download");
+            }
+        }
+    }
+
+    flow install {
+        for ${CUR} in ${MODS} {
+            if ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "install");
+            }
+        }
+    }
+    flow start {
+        for ${CUR} in ${MODS} {
+            if ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "start");
+            }
+        }
+    }
+    flow stop {
+        for ${CUR} in ${MODS} {
+            if ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "stop");
+            }
+        }
+    }
+    flow restart {
+        for ${CUR} in ${MODS} {
+            if ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "restart");
+            }
+        }
+    }
+    flow update {
+        for ${CUR} in ${MODS} {
+            if ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "update");
+            }
+        }
+    }
+    flow uninstall {
+        for ${CUR} in ${MODS} {
+            if ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "uninstall");
+            }
+        }
+    }
+}

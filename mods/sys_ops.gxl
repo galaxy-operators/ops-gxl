@@ -9,7 +9,7 @@ mod sys_ops {
 
     flow download {
         for ${CUR} in ${MODS} {
-            if !defined($CUR.ENABLE) || ${CUR.ENABLE} == true {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "download");
             }
@@ -18,7 +18,7 @@ mod sys_ops {
 
     flow install {
         for ${CUR} in ${MODS} {
-            if !defined($CUR.ENABLE) || ${CUR.ENABLE} == true {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "install");
             }
@@ -26,7 +26,7 @@ mod sys_ops {
     }
     flow start {
         for ${CUR} in ${MODS} {
-            if !defined($CUR.ENABLE) || ${CUR.ENABLE} == true {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "start");
             }
@@ -34,7 +34,7 @@ mod sys_ops {
     }
     flow stop {
         for ${CUR} in ${MODS} {
-            if !defined($CUR.ENABLE) || ${CUR.ENABLE} == true {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "stop");
             }
@@ -42,7 +42,7 @@ mod sys_ops {
     }
     flow restart {
         for ${CUR} in ${MODS} {
-            if !defined($CUR.ENABLE) || ${CUR.ENABLE} == true {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "restart");
             }
@@ -50,7 +50,7 @@ mod sys_ops {
     }
     flow update {
         for ${CUR} in ${MODS} {
-            if !defined($CUR.ENABLE) || ${CUR.ENABLE} == true {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "update");
             }
@@ -58,7 +58,7 @@ mod sys_ops {
     }
     flow uninstall {
         for ${CUR} in ${MODS} {
-            if !defined($CUR.ENABLE) || ${CUR.ENABLE} == true {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "uninstall");
             }

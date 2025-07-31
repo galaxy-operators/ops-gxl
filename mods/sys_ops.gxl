@@ -64,4 +64,13 @@ mod sys_ops {
             }
         }
     }
+
+     flow status {
+        for ${CUR} in ${MODS} {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "status");
+            }
+        }
+    }
 }

@@ -1,0 +1,18 @@
+mod ops_utls {
+
+    fn download_tar( artifacts, art_local  )  {
+          download_path = "${HOME}/ds-download/";
+          gx.cmd ( "mkdir -p ${DOWNLOAD_PATH}");
+          for ${ITEM} in ${ARTIFACTS} {
+              if defined(${ITEM.CACHE_ENABLE}) && ${ITEM.CACHE_ENABLE} == true  && defined(${ITEM.CACHE_ADDR.URL}) {
+                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.CACHE_ADDR.URL}");
+                gx.download ( url : "${ITEM.CACHE_ADDR.URL}" , local_file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" );
+              } else {
+                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.ORIGIN_ADDR.URL}");
+                gx.download ( url : "${ITEM.ORIGIN_ADDR.URL}" , local_file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" );
+              }
+              gx.untar ( file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" , dst : "${ART_LOCAL}");
+          }
+    }
+
+}

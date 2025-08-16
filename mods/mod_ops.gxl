@@ -1,6 +1,6 @@
 mod mod_ops {
     #[auto_load(entry)]
-    flow __into  {
+    flow __into_mod_ops  {
       //进行依赖确认
     }
 
@@ -27,6 +27,9 @@ mod mod_ops {
    }
    flow status {
       gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "status" ) ;
+   }
+   flow diagnose {
+      gx.run ( local : "./mod/${ENV_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "diagnose" ) ;
    }
 }
 
@@ -66,5 +69,9 @@ mod empty_operators  {
     #[task(name="status")]
     flow status {
         gx.echo ( "ignore status ...") ;
+    }
+    #[task(name="diagnose")]
+    flow diagnose {
+        gx.echo ( "ignore diagnose ...") ;
     }
 }

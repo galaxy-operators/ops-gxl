@@ -1,7 +1,7 @@
 mod sys_ops {
   
     #[auto_load(entry)]
-    flow __into  {
+    flow __into_sys_ops  {
         //这里需要提供新机制，判断是否存在依赖的变量。或者提供依赖检查检查机制
         // gx.assert( value : "ENV_SYS_MODEL" , value : "arm-mac14-host" ) ;
         gx.read_file( file : "./${ENV_SYS}/mod_list.yml" ,  name : "MODS" ) ;
@@ -70,6 +70,14 @@ mod sys_ops {
             if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
                 gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                 gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "status");
+            }
+        }
+    }
+     flow diagnose {
+        for ${CUR} in ${MODS} {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "diagnose");
             }
         }
     }

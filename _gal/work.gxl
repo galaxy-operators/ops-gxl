@@ -1,0 +1,15 @@
+extern mod sys_ops { path = "./mods" ; }  ;
+mod envs {
+     env default {
+        SYS = "sys" ;
+        SYS_MODEL = "arm-mac14-host";
+        MODULE_ENV = "default";
+     }
+}
+mod main : sys_ops {
+
+    flow do_mod |  sys_ops.do_mod_action {
+        MOD_NAME = "mod_a";
+        MOD_ACTION = "install";
+    }
+}

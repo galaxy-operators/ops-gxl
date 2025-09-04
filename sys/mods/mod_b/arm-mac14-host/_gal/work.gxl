@@ -1,0 +1,11 @@
+
+extern mod operators { path = "./workflows";  } 
+
+mod envs {
+    env default {
+        //gx.read_file ( file : "./values/_used.json") ;
+    }
+}
+
+mod main   : operators {
+}

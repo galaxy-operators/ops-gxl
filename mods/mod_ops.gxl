@@ -37,41 +37,41 @@ mod empty_operators  {
 
     #[task(name="download")]
     flow download {
-        gx.echo ( "need Todo....") ;
+        gx.echo ( "download need Todo....") ;
     }
     #[task(name="install")]
     flow install {
-        gx.echo ( "need Todo....") ;
+        gx.echo ( "install need Todo....") ;
     }
 
     #[task(name="uninstall")]
     flow uninstall {
-        gx.echo ( "need Todo....") ;
+        gx.echo ( "uninstall ignore Todo....") ;
     }
     #[task(name="update")]
     flow update {
-        gx.echo ( "need Todo....") ;
+        gx.echo ( "update ignore Todo....") ;
     }
     #[task(name="start")]
     flow start {
-        gx.echo ( "ignore start...") ;
+        gx.echo ( "start ignore ...") ;
 
     }
     #[task(name="stop")]
     flow stop {
-        gx.echo ( "ignore stop ...") ;
+        gx.echo ( "stop ignore ...") ;
 
     }
     #[task(name="restart")]
     flow restart {
-        gx.echo ( "ignore restart ...") ;
+        gx.echo ( "restart ignore ...") ;
     }
     #[task(name="status")]
     flow status {
-        gx.echo ( "ignore status ...") ;
+        gx.echo ( "status ignore ...") ;
     }
     #[task(name="diagnose")]
     flow diagnose {
-        gx.echo ( "ignore diagnose ...") ;
+        gx.echo ( "diagnose ignore ...") ;
     }
 }

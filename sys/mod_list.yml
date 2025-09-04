@@ -1,0 +1,13 @@
+- name: mod_a
+  enable: true
+  addr:
+    repo: https://github.com/galaxy-operators/mod_a.git
+    branch:  beta
+  node: arm-mac14-host
+
+- name: mod_b
+  addr:
+    repo: https://github.com/galaxy-operators/mod_b.git
+    branch:  beta
+  node: arm-mac14-host
+  enable:  true

@@ -7,6 +7,15 @@ mod sys_ops {
         gx.read_file( file : "./${ENV_SYS}/mod_list.yml" ,  name : "MODS" ) ;
     }
 
+    flow do_mod_action {
+        for ${CUR} in ${MODS} {
+            if (!defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true ) && ${CUR.NAME} == ${MOD_NAME} {
+                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : ${MOD_ACTION});
+            }
+        }
+    }
+
     flow download {
         for ${CUR} in ${MODS} {
             if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {

@@ -8,8 +8,10 @@ mod envs {
 }
 mod main : sys_ops {
 
-    flow do_mod |  single_ops.do_mod_action {
-        MOD_NAME = "mod_a";
-        MOD_ACTION = "${GXL_CMD_ARG}";
+    #[auto_load(entry)]
+    flow __into_main {
+        if defined(${GXL_CMD_ARG}) && ${GXL_CMD_ARG} != "" {
+            MOD_NAME = ${GXL_CMD_ARG} ;
+        }
     }
 }

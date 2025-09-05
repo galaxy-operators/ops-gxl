@@ -1,45 +1,3 @@
-mod single_ops {
-
-    flow do_mod_action {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true { 
-                if   ${CUR.NAME} == ${MOD_NAME} {
-                    gx.echo ( "MOD_NAME : ${MOD_NAME}  MOD_ACTION : ${MOD_ACTION}");
-                    gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                    gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "${MOD_ACTION}");
-                }
-            }
-        }
-    }
-    flow @download  | do_mod_action  {
-        MOD_ACTION = "download";
-    }
-    flow @install | do_mod_action  {
-        MOD_ACTION = "install";
-    }
-    flow @start | do_mod_action  {
-        MOD_ACTION = "start";
-    }
-    flow @stop | do_mod_action  {
-        MOD_ACTION = "stop";
-    }
-    flow @restart | do_mod_action  {
-        MOD_ACTION = "restart";
-    }
-    flow @update  | do_mod_action  {
-        MOD_ACTION = "update";
-    }
-    flow @uninstall | do_mod_action  {
-        MOD_ACTION = "uninstall";
-    }
-    flow @status | do_mod_action  {
-        MOD_ACTION = "status";
-    }
-    flow @diagnose| do_mod_action  {
-        MOD_ACTION = "diagnose";
-    }
-
-}
 mod sys_ops {
   
     #[auto_load(entry)]
@@ -49,79 +7,45 @@ mod sys_ops {
         gx.read_file( file : "./${ENV_SYS}/mod_list.yml" ,  name : "MODS" ) ;
     }
 
-
-    flow download {
+    flow _do_mod_action {
         for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "download");
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true { 
+                if   !defined(${MOD_NAME}) || ${CUR.NAME} == ${MOD_NAME} {
+                    //gx.echo ( "MOD_NAME : ${MOD_NAME}  MOD_ACTION : ${MOD_ACTION}");
+                    gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                    gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "${MOD_ACTION}");
+                }
             }
         }
     }
 
-    flow install {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "install");
-            }
-        }
-    }
-    flow start {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "start");
-            }
-        }
-    }
-    flow stop {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "stop");
-            }
-        }
-    }
-    flow restart {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "restart");
-            }
-        }
-    }
-    flow update {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "update");
-            }
-        }
-    }
-    flow uninstall {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "uninstall");
-            }
-        }
+    flow download  | _do_mod_action {
+        MOD_ACTION = "download";
     }
 
-     flow status {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "status");
-            }
-        }
+    flow install | _do_mod_action {
+        MOD_ACTION = "install";
     }
-     flow diagnose {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true {
-                gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "diagnose");
-            }
-        }
+    flow start | _do_mod_action {
+        MOD_ACTION = "start";
+    }
+    flow stop  | _do_mod_action {
+        MOD_ACTION = "stop";
+    }
+    flow restart | _do_mod_action {
+        MOD_ACTION = "restart";
+    }
+    flow update | _do_mod_action {
+        MOD_ACTION = "update";
+    }
+    flow uninstall | _do_mod_action {
+        MOD_ACTION = "uninstall";
+    }
+
+     flow status  | _do_mod_action {
+        MOD_ACTION = "status";
+    }
+     flow diagnose | _do_mod_action {
+        MOD_ACTION = "diagnose";
     }
 }

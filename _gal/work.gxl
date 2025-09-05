@@ -8,8 +8,8 @@ mod envs {
 }
 mod main : sys_ops {
 
-    flow do_mod |  sys_ops.do_mod_action {
+    flow do_mod |  single_ops.do_mod_action {
         MOD_NAME = "mod_a";
-        MOD_ACTION = "install";
+        MOD_ACTION = "${GXL_CMD_ARG}";
     }
 }

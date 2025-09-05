@@ -1,3 +1,45 @@
+mod single_ops {
+
+    flow do_mod_action {
+        for ${CUR} in ${MODS} {
+            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true { 
+                if   ${CUR.NAME} == ${MOD_NAME} {
+                    gx.echo ( "MOD_NAME : ${MOD_NAME}  MOD_ACTION : ${MOD_ACTION}");
+                    gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
+                    gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "${MOD_ACTION}");
+                }
+            }
+        }
+    }
+    flow @download  | do_mod_action  {
+        MOD_ACTION = "download";
+    }
+    flow @install | do_mod_action  {
+        MOD_ACTION = "install";
+    }
+    flow @start | do_mod_action  {
+        MOD_ACTION = "start";
+    }
+    flow @stop | do_mod_action  {
+        MOD_ACTION = "stop";
+    }
+    flow @restart | do_mod_action  {
+        MOD_ACTION = "restart";
+    }
+    flow @update  | do_mod_action  {
+        MOD_ACTION = "update";
+    }
+    flow @uninstall | do_mod_action  {
+        MOD_ACTION = "uninstall";
+    }
+    flow @status | do_mod_action  {
+        MOD_ACTION = "status";
+    }
+    flow @diagnose| do_mod_action  {
+        MOD_ACTION = "diagnose";
+    }
+
+}
 mod sys_ops {
   
     #[auto_load(entry)]
@@ -7,19 +49,6 @@ mod sys_ops {
         gx.read_file( file : "./${ENV_SYS}/mod_list.yml" ,  name : "MODS" ) ;
     }
 
-    flow do_mod_action {
-        for ${CUR} in ${MODS} {
-            if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true { 
-                MOD_XNAME = "mod_a";
-                if   ${CUR.NAME} == ${MOD_XNAME} {
-                    gx.echo ( "MOD_NAME : |${MOD_NAME}|");
-                    gx.echo ( "MOD_ACTION: |${MOD_ACTION}|");
-                    gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
-                    gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "${MOD_ACTION}");
-                }
-            }
-        }
-    }
 
     flow download {
         for ${CUR} in ${MODS} {

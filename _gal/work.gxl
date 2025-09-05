@@ -8,10 +8,4 @@ mod envs {
 }
 mod main : sys_ops {
 
-    #[auto_load(entry)]
-    flow __into_main {
-        if defined(${GXL_CMD_ARG}) && ${GXL_CMD_ARG} != "" {
-            MOD_NAME = ${GXL_CMD_ARG} ;
-        }
-    }
 }

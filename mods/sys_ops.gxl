@@ -2,6 +2,9 @@ mod sys_ops {
   
     #[auto_load(entry)]
     flow __into_sys_ops  {
+        if defined(${GXL_CMD_ARG}) && ${GXL_CMD_ARG} != "" {
+            MOD_NAME = ${GXL_CMD_ARG} ;
+        }
         //这里需要提供新机制，判断是否存在依赖的变量。或者提供依赖检查检查机制
         // gx.assert( value : "ENV_SYS_MODEL" , value : "arm-mac14-host" ) ;
         gx.read_file( file : "./${ENV_SYS}/mod_list.yml" ,  name : "MODS" ) ;
@@ -11,7 +14,6 @@ mod sys_ops {
         for ${CUR} in ${MODS} {
             if !defined(${CUR.ENABLE}) || ${CUR.ENABLE} == true { 
                 if   !defined(${MOD_NAME}) || ${CUR.NAME} == ${MOD_NAME} {
-                    //gx.echo ( "MOD_NAME : ${MOD_NAME}  MOD_ACTION : ${MOD_ACTION}");
                     gx.echo ("gx.run ./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}");
                     gx.run(local: "./${ENV_SYS}/mods/${CUR.NAME}/${ENV_SYS_MODEL}", env : "${ENV_MODULE_ENV}" , flow : "${MOD_ACTION}");
                 }
